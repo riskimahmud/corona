@@ -55,8 +55,26 @@ class Admin extends CI_Controller
 				"divider"	=>	FALSE,
 			);
 			$data['bread']		=	$bread;
+			$date	=	date("Y-m-d");
+			$where_covid	=	[
+				"tgl_masuk >" => "2020-01-01",
+				"tgl_masuk <=" => $date
+			];
+			$data['kasus']	=	$this->crud_model->select_all_where_array("pasien", $where_covid);
+			$data['aktif']	=	$this->crud_model->select_custom("SELECT * FROM `pasien` WHERE tgl_masuk > '2020-01-01' and tgl_masuk <= '$date' and (tgl_keluar IS null or tgl_keluar > '$date')");
+			$data['sembuh']	=	$this->crud_model->select_all_where_array("pasien", array_merge($where_covid, [
+				"tgl_keluar <=" => $date,
+				"status" => "sembuh"
+			]));
+			$data['meninggal']	=	$this->crud_model->select_all_where_array("pasien", array_merge($where_covid, [
+				"tgl_keluar <=" => $date,
+				"status" => "meninggal"
+			]));
+
+			$data['dosis1']	=	$this->crud_model->select_custom_row("SELECT count(id_vaksin) as jumlah FROM vaksin WHERE dosis = 'Dosis 1' GROUP BY dosis");
+			$data['dosis2']	=	$this->crud_model->select_custom_row("SELECT count(id_vaksin) as jumlah FROM vaksin WHERE dosis = 'Dosis 2' GROUP BY dosis");
+
 			$this->load->view('backend/main', $data);
-			// echo $capen;
 		}
 	}
 
