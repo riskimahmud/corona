@@ -1,140 +1,75 @@
-<aside id="footer-widgets">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h3 class="footer-widget-title">Sitemap</h3>
-                <ul class="list-unstyled three_cols">
-                    <li><a href="<?php echo site_url(); ?>">Beranda</a></li>
-                    <li><a href="<?php echo site_url("frontend/data"); ?>">Data</a></li>
-                    <li><a href="<?php echo site_url("frontend/publikasi"); ?>">Publikasi</a></li>
-                    <li><a href="<?php echo site_url("frontend/faq"); ?>">FAQ</a></li>
-                    <li><a href="<?php echo site_url("frontend/kontak"); ?>">Kontak</a></li>
-                    <li><a href="<?php echo site_url("login"); ?>">Login</a></li>
-                </ul>
-            </div>
-            <div class="col-md-8">
-				<h3 class="footer-widget-title">Kunjungan</h3>
-				<div class="row" style="margin-top:-50px;">
-					<div class="col-md-6">
-						<ul class="list-group margin-top" style="background-color:transparent;">
-							<li class="list-group-item" style="background-color:transparent;">
-								Hari Ini
-								<span class="pull-right" style="font-size:30px; font-weight:bold;"><?php echo $kunjungan['hari_ini']; ?></span>
-							</li>
-							<li class="list-group-item" style="background-color:transparent;">
-								Kemarin
-								<span class="pull-right" style="font-size:30px; font-weight:bold;"><?php echo $kunjungan['kemarin']; ?></span>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-6">
-						<ul class="list-group margin-top" style="background-color:transparent;">
-							<li class="list-group-item" style="background-color:transparent;">
-								Bulan Ini
-								<span class="pull-right" style="font-size:30px; font-weight:bold;"><?php echo $kunjungan['bulan_ini']; ?></span>
-							</li>
-							<li class="list-group-item" style="background-color:transparent;">
-								Tahun Ini
-								<span class="pull-right" style="font-size:30px; font-weight:bold;"><?php echo $kunjungan['tahun_ini']; ?></span>
-							</li>
-						</ul>
-					</div>
+<footer class="footer-parallax light">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<h4>Pemerintah Kota Gorontalo</h4>
+				<div class="menu-inner menu-inner-vertical">
+					<ul>
+						<li>
+							<a href="http://gorontalokota.go.id">Portal Kota Gorontalo</a>
+						</li>
+						<li>
+							<a href="http://berita.gorontalokota.go.id">Berita</a>
+						</li>
+						<li>
+							<a href="http://kominfo.gorontalokota.go.id">Kominfo</a>
+						</li>
+					</ul>
 				</div>
-            </div>
-        </div> <!-- row -->
-    </div> <!-- container -->
-</aside> <!-- footer-widgets -->
-<footer id="footer">
-    <p>&copy; 2020 <a href="#">Diskominfo Kota Gorontalo</a>, inc. All rights reserved.</p>
+			</div>
+			<div class="col-lg-3">
+				<h4>&nbsp;</h4>
+				<div class="menu-inner menu-inner-vertical">
+					<ul>
+						<li>
+							<a href="#">Layanan Kominfo</a>
+						</li>
+						<li>
+							<a href="#">Gorontalo WiFi</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<h4>&nbsp;</h4>
+				<div class="menu-inner menu-inner-vertical">
+					<ul>
+						<li>
+							<a href="#">Portal Informasi Publik</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<h4>Follow us</h4>
+				<div class="icon-links icon-social icon-links-grid social-colors">
+					<a href="https://www.facebook.com/pemkotgto" class="facebook"><i class="icon-facebook"></i></a>
+					<a href="https://twitter.com/pemkotgorontalo" class="twitter"><i class="icon-twitter"></i></a>
+					<a class="youtube"><i class="icon-youtube"></i></a>
+					<a href="https://www.instagram.com/pemkotgorontalo/?hl=id" class="instagram"><i class="icon-instagram"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bar">
+		<div class="container">
+			<span>© Pemerintah <a target="_blank" href="http://gorontalokota.go.id">Kota Gorontalo</a></span>
+		</div>
+	</div>
+
+	<link rel="stylesheet" href="<?= base_url(); ?>assets_front/themekit/media/icons/iconsmind/line-icons.min.css">
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/parallax.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/glide.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/magnific-popup.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/slimscroll.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/tab-accordion.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/imagesloaded.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/contact-form/contact-form.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/social.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/pagination.min.js"></script>
+	<script src="<?= base_url(); ?>assets_front/themekit/scripts/progress.js"></script>
+	<script src="<?= base_url(); ?>assets_front/media/custom.js"></script>
 </footer>
-
-
-
-</div> <!-- boxed -->
-</div> <!-- sb-site -->
-
-<div class="sb-slidebar sb-right">
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search...">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>
-    </div><!-- /input-group -->
-
-    <h2 class="slidebar-header no-margin-bottom">Navigation</h2>
-    <ul class="slidebar-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="portfolio_topbar.html">Portfolio</a></li>
-        <li><a href="page_about3.html">About us</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="page_contact.html">Contact</a></li>
-    </ul>
-
-    <h2 class="slidebar-header">Social Media</h2>
-    <div class="slidebar-social-icons">
-        <a href="#" class="social-icon-ar rss"><i class="fa fa-rss"></i></a>
-        <a href="#" class="social-icon-ar facebook"><i class="fa fa-facebook"></i></a>
-        <a href="#" class="social-icon-ar twitter"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="social-icon-ar pinterest"><i class="fa fa-pinterest"></i></a>
-        <a href="#" class="social-icon-ar instagram"><i class="fa fa-instagram"></i></a>
-        <a href="#" class="social-icon-ar wordpress"><i class="fa fa-wordpress"></i></a>
-        <a href="#" class="social-icon-ar linkedin"><i class="fa fa-linkedin"></i></a>
-        <a href="#" class="social-icon-ar flickr"><i class="fa fa-flickr"></i></a>
-        <a href="#" class="social-icon-ar vine"><i class="fa fa-vine"></i></a>
-        <a href="#" class="social-icon-ar dribbble"><i class="fa fa-dribbble"></i></a>
-    </div>
-</div> <!-- sb-slidebar sb-right -->
-<div id="back-top">
-    <a href="#header"><i class="fa fa-chevron-up"></i></a>
-</div>
-
-
-<script src="<?php echo base_url(); ?>/assets_front/js/vendors.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets_front/js/styleswitcher.js"></script>
-
-<!-- Syntaxhighlighter -->
-<script src="<?php echo base_url(); ?>/assets_front/js/syntaxhighlighter/shCore.js"></script>
-<script src="<?php echo base_url(); ?>/assets_front/js/syntaxhighlighter/shBrushXml.js"></script>
-<script src="<?php echo base_url(); ?>/assets_front/js/syntaxhighlighter/shBrushJScript.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets_front/js/app.js"></script>
-<script src="<?php echo base_url(); ?>/assets_front/js/index.js"></script>
-<script src="<?php echo base_url(); ?>/assets_front/js/carousels.js"></script>
-<script>
-	function detail_sebaran(id){
-		$.ajax({
-		  url		: 	"<?= site_url("frontend/detail_sebaran/")?>",
-		  data		: 	'id='+id,
-		  type		:	"POST",
-		  beforeSend: function(html){
-			$("#detail_sebaran").html('<hr><i class="fa fa-spinner fa-spin"></i> Tunggu sebentar...');
-		  },
-		  success	: function(html){
-			$("#detail_sebaran").html(html);
-		  }
-		});
-
-	}
-</script>
-<script type="text/javascript">
-$(document).ready(function(e) {
-   
-	// live handler
-	lc_lightbox('.elem', {
-		wrap_class: 'lcl_fade_oc',
-		gallery : true,	
-		thumb_attr: 'data-lcl-thumb', 
-		
-		skin: 'light',
-		radius: 0,
-		padding	: 0,
-		border_w: 0,
-	});	
-
-});
-</script>
-
 </body>
 
 </html>

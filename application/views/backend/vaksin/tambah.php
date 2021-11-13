@@ -1,6 +1,6 @@
 <div class="row-fluid">
     <div class="span12">
-        <?= form_open('', ['class' => 'form-horizontal']); ?>
+        <?= form_open('', ['class' => 'form-horizontal', 'autocomplete' => 'off']); ?>
         <div class="control-group <?= form_error('penyelenggara') ? 'error' : ''; ?>">
             <label class="control-label" for="penyelenggara">Penyelenggara</label>
 

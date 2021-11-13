@@ -22,3 +22,8 @@ $route['hapus-jadwal/(:num)']    =   'M_vaksinasi/hapus/$1';
 $route['pasien-vaksinasi']    =   'M_vaksinasi/pasien';
 $route['import-pasien-vaksinasi']    =   'M_vaksinasi/import';
 $route['detail-pasien-vaksin']    =   'M_vaksinasi/detail_pasien';
+
+// frontend
+$route['pasien-covid']  =   'Frontend/pasien';
+$route['vaksinasi']  =   'Frontend/vaksinasi';
+$route['detail-jadwal']  =   'Frontend/detail_jadwal';
