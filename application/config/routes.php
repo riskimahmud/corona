@@ -27,3 +27,6 @@ $route['detail-pasien-vaksin']    =   'M_vaksinasi/detail_pasien';
 $route['pasien-covid']  =   'Frontend/pasien';
 $route['vaksinasi']  =   'Frontend/vaksinasi';
 $route['detail-jadwal']  =   'Frontend/detail_jadwal';
+
+// API
+// $route['get-vaksinasi'] = 'Api/'

@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 // $config['base_url'] = 'http://corona.gorontalokota.go.id/';
-$config['base_url'] = 'http://localhost/corona';
+$root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+$root .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+$config['base_url'] = $root;
+// $config['base_url'] = 'http://localhost/corona';
 $config['index_page'] = '';
 $config['uri_protocol']    = 'REQUEST_URI';
 $config['url_suffix'] = '.html';

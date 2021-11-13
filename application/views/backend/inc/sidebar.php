@@ -113,36 +113,36 @@
 			</a>
 
 			<ul class="submenu">
-				<li>
+				<!-- <li>
 					<a href="<?php echo site_url("m_hoax"); ?>">
 						<i class="icon-remove"></i>
 						<span class="menu-text"> Lawan HOAX </span>
 					</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="<?php echo site_url("m_berita"); ?>">
 						<i class="icon-list"></i>
 						<span class="menu-text"> Infografik </span>
 					</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="<?php echo site_url("m_dokumen"); ?>">
 						<i class="icon-book"></i>
 						<span class="menu-text"> Dokumen </span>
 					</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="<?php echo site_url("m_faq"); ?>">
 						<i class="icon-info"></i>
 						<span class="menu-text"> FAQ </span>
 					</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="<?php echo site_url("m_galeri"); ?>">
 						<i class="icon-picture"></i>
 						<span class="menu-text"> Galeri </span>
 					</a>
-				</li>
+				</li> -->
 			</ul>
 		</li>
 		<!-- <li>
