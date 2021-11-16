@@ -6,7 +6,9 @@
 	<link rel="shortcut icon" href="<?php echo base_url(); ?>/assets_front/img/kota-gorontalo.png" />
 	<title>Pantauan Covid19 Kota Gorontalo | <?php echo $title; ?></title>
 
-	<meta name="description" content="" />
+	<link rel="icon" href="<?= base_url(); ?>assets_front/media/kota-gorontalo.png">
+
+	<meta name="description" content="Pantauan Covid19 Kota Gorontalo" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!--basic styles-->

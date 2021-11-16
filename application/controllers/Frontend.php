@@ -39,6 +39,7 @@ class Frontend extends CI_Controller
 		$data['jadwal']	=	$this->crud_model->select_all_where_array_order("jadwal_vaksin", [
 			"tanggal >= " => date('Y-m-d', strtotime("-6 day", strtotime(date("Y-m-d"))))
 		], "tanggal", "ASC");
+		$data['tempat_tidur']	=	$this->crud_model->select_all_where("tempat_rawat", "digunakan <>", NULL);
 		$data["dashboard"]	=	true;
 		$this->load->view("frontend/main", $data);
 	}

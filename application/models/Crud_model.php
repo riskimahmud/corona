@@ -263,15 +263,22 @@ class Crud_model extends CI_Model
 	}
 
 	// Select paginasi
-	function select_paging($table, $number, $offset)
+	function select_paging($table, $number, $offset, $order = null, $order_by = null, $like = null)
 	{
-		return $query = $this->db->get($table, $number, $offset)->result();
+		if ($order !== null) {
+			$this->db->like('nama', $like);
+			$this->db->or_like('tiket', $like);
+		}
+		if ($order !== null) {
+			$this->db->order_by($order, $order_by);
+		}
+		return $this->db->get($table, $number, $offset)->result();
 	}
 
 	// Select paginasi where array
 	function select_paging_where_array($table, $where, $number, $offset)
 	{
-		return $query = $this->db->get($table, $number, $offset)->result();
+		return $this->db->get($table, $number, $offset)->result();
 	}
 
 	// limit for paginasi
@@ -332,6 +339,12 @@ class Crud_model extends CI_Model
 	{
 		$q	=	$this->db->query($query);
 		return $q->row();
+	}
+
+	function select_custom_numrow($query)
+	{
+		$q	=	$this->db->query($query);
+		return $q->num_rows();
 	}
 
 	function custom_query($query)
@@ -398,9 +411,23 @@ class Crud_model extends CI_Model
 		}
 	}
 
+	// cek nomor tiket
+	function cek_tiket($where)
+	{
+		$this->db->select('id_vaksin');
+		$this->db->where($where);
+		$query = $this->db->get("vaksin");
+		return $query->num_rows();
+	}
+
 	// import pasien vaksin
 	function import($table, $data)
 	{
 		return $this->db->insert($table, $data);
+	}
+
+	function import_batch($table, $data)
+	{
+		return $this->db->insert_batch($table, $data);
 	}
 }

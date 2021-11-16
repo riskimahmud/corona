@@ -19,7 +19,9 @@ $route['jadwal-vaksinasi']    =   'M_vaksinasi/jadwal';
 $route['tambah-jadwal']    =   'M_vaksinasi/tambah';
 $route['ubah-jadwal/(:num)']    =   'M_vaksinasi/ubah/$1';
 $route['hapus-jadwal/(:num)']    =   'M_vaksinasi/hapus/$1';
+$route['semua-pasien-vaksinasi']    =   'M_vaksinasi/reset_pencarian_pasien';
 $route['pasien-vaksinasi']    =   'M_vaksinasi/pasien';
+$route['pasien-vaksinasi/(:num)']    =   'M_vaksinasi/pasien/$1';
 $route['import-pasien-vaksinasi']    =   'M_vaksinasi/import';
 $route['detail-pasien-vaksin']    =   'M_vaksinasi/detail_pasien';
 

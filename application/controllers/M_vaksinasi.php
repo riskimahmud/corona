@@ -224,15 +224,24 @@ class M_vaksinasi extends CI_Controller
         }
     }
 
+    // reset pencarian pasien
+    public function reset_pencarian_pasien()
+    {
+        $this->session->unset_userdata("keyword");
+        redirect('pasien-vaksinasi');
+    }
+
     // Pasien vaksinasi
-    public function pasien()
+    public function pasien($page = null)
     {
         $a    =    array();
+
+        $this->load->library('pagination');
 
         $a['page']      =    "/vaksin/pasien";
         $a['title']     =    "Pasien Vaksinasi";
         $a['label']     =    "Pasien Vaksinasi";
-        $a['data']      =    $this->crud_model->select_all_order("vaksin", "tanggal", "ASC");
+        // $a['data']      =    $this->crud_model->select_all_where_limit("vaksin", "id_vaksin >", "0", "tanggal", "ASC", "1000");
 
         $this->bread[]  =    array(
             "active"    =>    TRUE,
@@ -243,6 +252,28 @@ class M_vaksinasi extends CI_Controller
         );
 
         $a['bread']        =    $this->bread;
+
+        if ($this->input->post('submit', true)) {
+            $a['keyword']    =   $this->input->post('keyword', true);
+            $this->session->set_userdata("keyword", $a['keyword']);
+        } else {
+            $a['keyword']    =   $this->session->userdata("keyword");
+        }
+
+        $config['base_url'] = site_url('pasien-vaksinasi');
+        // $config['total_rows'] = $this->crud_model->select_all_num_row('vaksin');
+        $this->db->like('nama', $a['keyword']);
+        $this->db->or_like('tiket', $a['keyword']);
+        $this->db->from('vaksin');
+        $config['total_rows'] = $this->db->count_all_results();
+        $config['per_page'] = 20;
+
+        $a['data']  =   $this->crud_model->select_paging("vaksin", $config['per_page'], ($page !== null) ? (($page - 1) * $config['per_page']) : 0, 'tanggal', 'ASC', $a['keyword']);
+        $a['no']    =   ($page) ? (($page - 1) * $config['per_page'] + 1) : 1;
+        $a['total_rows']    =   $config['total_rows'];
+
+        $this->pagination->initialize($config);
+
         $this->load->view("backend/main", $a);
     }
 
@@ -290,7 +321,7 @@ class M_vaksinasi extends CI_Controller
 
             // Validasi apakah file yang diupload benar-benar file csv.
             if (strtolower(end($ekstensi)) === 'csv' && $_FILES["file"]["size"] > 0) {
-
+                $data = [];
                 $handle = fopen($file, "r");
                 $i = 0;
                 while (($row = fgetcsv($handle, 2048))) {
@@ -299,10 +330,11 @@ class M_vaksinasi extends CI_Controller
                     // Data yang akan disimpan ke dalam databse
 
                     // cek tiket yang sudah ada
-                    $cek    =   $this->crud_model->select_all_where_array_num_row("vaksin", ["tiket" => $row[11]]);
+                    $cek    =   $this->crud_model->cek_tiket(["tiket" => $row[11]]);
                     if ($cek > 0) continue;
-                    $data = [
-                        'tanggal' => date_format(date_create_from_format('d/m/Y', $row[0]), 'Y-m-d'),
+                    $data[] = [
+                        // 'tanggal' => date_format(date_create_from_format('d/m/Y', $row[0]), 'Y-m-d'),
+                        'tanggal' => $row[0],
                         'provinsi' => $row[1],
                         'kabupaten' => $row[2],
                         'faskes' => $row[3],
@@ -318,9 +350,11 @@ class M_vaksinasi extends CI_Controller
                     ];
 
                     // Simpan data ke database.
-                    $this->crud_model->import("vaksin", $data);
+                    // $this->crud_model->import("vaksin", $data);
                 }
-
+                if (!empty($data)) {
+                    $this->crud_model->import_batch("vaksin", $data);
+                }
                 fclose($handle);
 
                 $notifikasi        =    array(
@@ -348,8 +382,9 @@ class M_vaksinasi extends CI_Controller
         } else if (isset($_FILES['file']) && $_FILES['file']['size'] != 0) {
             $allowedExts = array("csv");
             $extension = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-            if (filesize($_FILES['file']['tmp_name']) > 200000) {
+            if (filesize($_FILES['file']['tmp_name']) > 2108451) {
                 $this->form_validation->set_message('check_file', 'File maximal 2mb');
+                // $this->form_validation->set_message('check_file', 'Ukuran : ' . filesize($_FILES['file']['tmp_name']));
                 $check = FALSE;
             }
             if (!in_array($extension, $allowedExts)) {

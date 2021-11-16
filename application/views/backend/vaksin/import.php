@@ -14,7 +14,7 @@
             <h4 class="blue smaller dark">Ketentuan</h4>
             <ul>
                 <li>File harus berformat .csv</li>
-                <li>Maksimal 5mb</li>
+                <li>Maksimal 2mb</li>
             </ul>
         </div>
 

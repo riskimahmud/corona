@@ -31,7 +31,7 @@
 						<div class="cnt-box cnt-box-top-icon boxed">
 							<i class="im-bar-chart"></i>
 							<div class="caption">
-								<p><?= $kasus; ?></p>
+								<p><?= titik_angka($kasus); ?></p>
 								<span class="text-error">Jumlah Kasus</span>
 							</div>
 						</div>
@@ -40,7 +40,7 @@
 						<div class="cnt-box cnt-box-top-icon boxed">
 							<i class="im-depression" style="color:black"></i>
 							<div class="caption">
-								<p><?= $aktif->jumlah; ?></p>
+								<p><?= titik_angka($aktif->jumlah); ?></p>
 								<span>Aktif</span>
 							</div>
 						</div>
@@ -49,7 +49,7 @@
 						<div class="cnt-box cnt-box-top-icon boxed">
 							<i class="im-crying" style="color: red;"></i>
 							<div class="caption">
-								<p><?= $meninggal; ?></p>
+								<p><?= titik_angka($meninggal); ?></p>
 								<span>Meninggal</span>
 							</div>
 						</div>
@@ -58,7 +58,7 @@
 						<div class="cnt-box cnt-box-top-icon boxed">
 							<i class="im-happy" style="color:green;"></i>
 							<div class="caption">
-								<p><?= $sembuh; ?></p>
+								<p><?= titik_angka($sembuh); ?></p>
 								<span>Sembuh</span>
 							</div>
 						</div>
@@ -109,6 +109,33 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="section-image light" style="background-image:url(assets_front/media/bg.svg)">
+		<div class="container">
+			<h2 class="align-center">Ketersedian Tempat Tidur</h2>
+			<hr class="space-10" />
+			<table class="table table-grid table-border align-left no-padding-y table-md-4">
+				<tbody>
+					<tr>
+						<?php foreach ($tempat_tidur as $tt) : ?>
+							<td>
+								<div class="counter counter-horizontal counter-icon">
+									<div>
+										<h3><?= $tt->nama_tempat_rawat; ?></h3>
+										<div class="value text-lg">
+											<span data-to="<?= ($tt->kuota - $tt->digunakan); ?>" data-speed="3000"><?= titik_angka($tt->kuota - $tt->digunakan); ?></span>
+											<span class="text-md"><i class="im-hospital"></i></span>
+										</div>
+									</div>
+								</div>
+							</td>
+						<?php endforeach; ?>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
 	<section class="section-base section-color section-bottom-layer section-full-width-left">
 		<div class="container">
 			<div class="row">
@@ -162,7 +189,7 @@
 						<div>
 							<h3>Dosis 1</h3>
 							<div class="value">
-								<span class="text-md" data-to="<?= ($dosis1->jumlah > 0) ? $dosis1->jumlah : 0; ?>" data-speed="5000"><?= ($dosis1->jumlah > 0) ? $dosis1->jumlah : 0; ?></span>
+								<span class="text-md" data-to="<?= ($dosis1->jumlah > 0) ? $dosis1->jumlah : 0; ?>" data-speed="5000"><?= ($dosis1->jumlah > 0) ? titik_angka($dosis1->jumlah) : 0; ?></span>
 								<span>Orang</span>
 							</div>
 						</div>
@@ -174,7 +201,7 @@
 						<div>
 							<h3>Dosis 2</h3>
 							<div class="value">
-								<span class="text-md" data-to="<?= ($dosis2->jumlah > 0) ? $dosis2->jumlah : 0; ?>" data-speed="5000"><?= ($dosis2->jumlah > 0) ? $dosis2->jumlah : 0; ?></span>
+								<span class="text-md" data-to="<?= ($dosis2->jumlah > 0) ? $dosis2->jumlah : 0; ?>" data-speed="5000"><?= ($dosis2->jumlah > 0) ? titik_angka($dosis2->jumlah) : 0; ?></span>
 								<span>Orang</span>
 							</div>
 						</div>
@@ -186,29 +213,12 @@
 						<div>
 							<h3>Dosis 3</h3>
 							<div class="value">
-								<span class="text-md" data-to="<?= (!empty($dosis3)) ? $dosis3->jumlah : "0"; ?>" data-speed="5000"><?= (!empty($dosis3)) ? $dosis3->jumlah : "0"; ?></span>
+								<span class="text-md" data-to="<?= (!empty($dosis3)) ? $dosis3->jumlah : "0"; ?>" data-speed="5000"><?= (!empty($dosis3)) ? titik_angka($dosis3->jumlah) : "0"; ?></span>
 								<span>Orang</span>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<hr class="space">
-			<div class="row">
-				<?php foreach ($jenis_vaksin as $jv) : ?>
-					<div class="col-lg-4">
-						<div class="counter counter-horizontal counter-icon">
-							<i class="im-first-aid text-lg"></i>
-							<div>
-								<h3><?= $jv->jenis_vaksin; ?></h3>
-								<div class="value">
-									<span class="text-md" data-to="<?= $jv->jumlah; ?>" data-speed="5000"><?= $jv->jumlah; ?></span>
-									<span>Orang</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				<?php endforeach; ?>
 			</div>
 			<?php if (!empty($jadwal)) : ?>
 				<hr />
