@@ -23,7 +23,11 @@ class A_vaksinasi extends REST_Controller
         $nama = $this->get('nama');
 
         if ($method == "pasien") {
-            $data   =   $this->api->getVaksinasi($id, $nama);
+            $tmp_data = $this->api->getVaksinasi($id, $nama);
+            foreach ($tmp_data as $i => $v) {
+                $tmp_data[$i]['tanggal']   =   tgl_indonesia($v['tanggal']);
+            }
+            $data   = $tmp_data;
         } elseif ($method == "jadwal") {
             $data   =   $this->api->getJadwalVaksinasi();
         } elseif ($method == "dosis") {
