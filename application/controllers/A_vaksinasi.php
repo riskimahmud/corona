@@ -25,6 +25,9 @@ class A_vaksinasi extends REST_Controller
             $data   =   $this->api->getVaksinasi($id);
         } elseif ($method == "jadwal") {
             $data   =   $this->api->getJadwalVaksinasi();
+        } elseif ($method == "detail") {
+            $data['dosis']    =    $this->crud_model->select_custom("SELECT dosis, count(id_vaksin) as jumlah FROM vaksin GROUP BY dosis");
+            $data['jenis_vaksin']    =    $this->crud_model->select_custom("SELECT jenis_vaksin, count(id_vaksin) as jumlah FROM vaksin GROUP BY jenis_vaksin");
         } else {
             $data   =   false;
         }

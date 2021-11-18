@@ -28,6 +28,7 @@ class Api_model extends CI_Model
 
 	public function getVaksinasi($nik)
 	{
+		$this->db->order_by('tanggal', 'ASC');
 		return $this->db->get_where("vaksin", ["nik" => $nik])->result_array();
 	}
 
