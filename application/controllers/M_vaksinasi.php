@@ -268,7 +268,10 @@ class M_vaksinasi extends CI_Controller
         $config['total_rows'] = $this->db->count_all_results();
         $config['per_page'] = 20;
 
-        $a['data']  =   $this->crud_model->select_paging("vaksin", $config['per_page'], ($page !== null) ? (($page - 1) * $config['per_page']) : 0, 'tanggal', 'ASC', $a['keyword']);
+        $a['data']  =   $this->crud_model->select_paging("vaksin", $config['per_page'], ($page !== null) ? (($page - 1) * $config['per_page']) : 0, 'tanggal', 'ASC', [
+            "nama" => $a['keyword'],
+            "tiket" => $a['keyword'],
+        ]);
         $a['no']    =   ($page) ? (($page - 1) * $config['per_page'] + 1) : 1;
         $a['total_rows']    =   $config['total_rows'];
 

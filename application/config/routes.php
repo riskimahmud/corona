@@ -8,8 +8,15 @@ $route['testing']    =   'Admin/testing';
 
 // Pasien Covid
 $route['pasien']    =   'M_pasien/index';
-$route['pasien/(:any)']    =   'M_pasien/index/$1';
+$route['pasien/(:num)']    =   'M_pasien/index/$1';
+$route['pasien-semua']    =   'M_pasien/menu/semua';
+$route['pasien-aktif']    =   'M_pasien/menu/aktif';
+$route['pasien-sembuh']    =   'M_pasien/menu/sembuh';
+$route['pasien-meninggal']    =   'M_pasien/menu/meninggal';
+$route['batal-cari-pasien']    =   'M_pasien/menu/batal';
+$route['pasien-checkup']    =   'M_pasien/menu/checkup';
 $route['detail-pasien']    =   'M_pasien/detail';
+$route['import-pasien']    =   'M_pasien/import';
 $route['tambah-pasien']    =   'M_pasien/tambah';
 $route['ubah-pasien/(:num)']    =   'M_pasien/ubah/$1';
 $route['update-data-pasien']    =   'M_pasien/update';

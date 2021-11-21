@@ -32,7 +32,7 @@ $config = array(
 		[
 			'field' => 'nik',
 			'label' => 'NIK',
-			'rules' => 'trim|required|numeric|min_length[16]'
+			'rules' => 'trim|numeric|min_length[16]'
 		],
 		[
 			'field' => 'nama',

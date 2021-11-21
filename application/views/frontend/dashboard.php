@@ -40,7 +40,7 @@
 						<div class="cnt-box cnt-box-top-icon boxed">
 							<i class="im-depression" style="color:black"></i>
 							<div class="caption">
-								<p><?= titik_angka($aktif->jumlah); ?></p>
+								<p><?= titik_angka($aktif); ?></p>
 								<span>Aktif</span>
 							</div>
 						</div>

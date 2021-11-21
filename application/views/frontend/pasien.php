@@ -15,7 +15,7 @@
                                 <i class="im-bar-chart text-lg" style="color:#47B2E4"></i>
                                 <div class="caption">
                                     <h3 class="text-sm">Jumlah Kasus</h3>
-                                    <p><?= count($kasus); ?></p>
+                                    <p><?= titik_angka($kasus); ?></p>
                                 </div>
                             </div>
                         </td>
@@ -24,7 +24,7 @@
                                 <i class="im-depression text-lg" style="color:black"></i>
                                 <div class="caption">
                                     <h3 class="text-sm">Aktif</h3>
-                                    <p><?= $aktif->jumlah; ?></p>
+                                    <p><?= titik_angka($aktif); ?></p>
                                 </div>
                             </div>
                         </td>
@@ -33,7 +33,7 @@
                                 <i class="im-crying text-lg" style="color:red"></i>
                                 <div class="caption">
                                     <h3 class="text-sm">Meninggal</h3>
-                                    <p><?= $meninggal; ?></p>
+                                    <p><?= titik_angka($meninggal); ?></p>
                                 </div>
                             </div>
                         </td>
@@ -42,7 +42,7 @@
                                 <i class="im-happy text-lg" style="color:green"></i>
                                 <div class="caption">
                                     <h3 class="text-sm">Sembuh</h3>
-                                    <p><?= $sembuh; ?></p>
+                                    <p><?= titik_angka($sembuh); ?></p>
                                 </div>
                             </div>
                         </td>

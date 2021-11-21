@@ -41,10 +41,22 @@ class M_pasien extends CI_Controller
         }
     }
 
+    public function menu($menu = null)
+    {
+        if ($menu == "batal") {
+            $this->session->unset_userdata("keyword_covid");
+        } else {
+            $this->session->set_userdata("menu", $menu);
+        }
+        redirect("pasien");
+    }
 
-    public function index($id = null)
+
+    public function index($page = null)
     {
         $a    =    array();
+
+        $this->load->library('pagination');
 
         $a['page']      =    "/pasien";
         $a['title']     =    "Daftar Pasien Covid-19";
@@ -52,17 +64,68 @@ class M_pasien extends CI_Controller
         $a['data']      =    $this->crud_model->select_all_order("pasien", "tgl_masuk", "DESC");
         $a['expire']    =    $this->crud_model->select_all_where_array_num_row("pasien", ["status" => "aktif", "tgl_expire <=" => date("Y-m-d")]);
 
-        if ($id !== null) {
-            if ($id == "aktif") {
+        $menu = $this->session->userdata("menu");
+
+        if ($menu !== null && $menu != "semua") {
+            if ($menu == "aktif") {
                 $a['title']     =    "Daftar Pasien Aktif Covid-19";
                 $a['label']     =    "Daftar Pasien Aktif Covid-19";
-                $a['data']      =    $this->crud_model->select_all_where_order("pasien", "status", "aktif", "tgl_masuk", "DESC");
-            } elseif ($id == "checkup") {
+                $where          =    ["status" => "aktif"];
+            } elseif ($menu == "checkup") {
                 $a['title']     =    "Daftar Pasien Aktif Covid-19 Yang Masuk Waktu Checkup";
                 $a['label']     =    "Daftar Pasien Aktif Covid-19 Yang Masuk Waktu Checkup";
-                $a['data']      =    $this->crud_model->select_all_where_array_order("pasien", ["status" => "aktif", "tgl_expire <=" => date("Y-m-d")], "tgl_masuk", "DESC");
+                $where          =    ["status" => "aktif", "tgl_expire <=" => date("Y-m-d")];
+            } else {
+                $a['title']     =    "Daftar Pasien " . ucfirst($menu) . " Covid-19";
+                $a['label']     =    "Daftar Pasien " . ucfirst($menu) . " Covid-19";
+                $where          =    ["status" => $menu];
             }
+            if ($this->input->post('submit', true)) {
+                $a['keyword_covid']    =   $this->input->post('keyword_covid', true);
+                $this->session->set_userdata("keyword_covid", $a['keyword_covid']);
+            } else {
+                $a['keyword_covid']    =   $this->session->userdata("keyword_covid");
+            }
+
+            $config['base_url'] = site_url('pasien');
+            // $config['total_rows'] = $this->crud_model->select_all_num_row('vaksin');
+            $this->db->like('nama', $a['keyword_covid']);
+            $this->db->where($where);
+            $this->db->from('pasien');
+            $config['total_rows'] = $this->db->count_all_results();
+            $config['per_page'] = 20;
+
+            $a['data']  =   $this->crud_model->select_paging("pasien", $config['per_page'], ($page !== null) ? (($page - 1) * $config['per_page']) : 0, 'tgl_masuk', 'DESC', [
+                "nama" => $a['keyword_covid']
+            ], $where);
+            $a['no']    =   ($page) ? (($page - 1) * $config['per_page'] + 1) : 1;
+            $a['total_rows']    =   $config['total_rows'];
+
+            $this->pagination->initialize($config);
+        } else {
+            if ($this->input->post('submit', true)) {
+                $a['keyword_covid']    =   $this->input->post('keyword_covid', true);
+                $this->session->set_userdata("keyword_covid", $a['keyword_covid']);
+            } else {
+                $a['keyword_covid']    =   $this->session->userdata("keyword_covid");
+            }
+
+            $config['base_url'] = site_url('pasien');
+            // $config['total_rows'] = $this->crud_model->select_all_num_row('vaksin');
+            $this->db->like('nama', $a['keyword_covid']);
+            $this->db->from('pasien');
+            $config['total_rows'] = $this->db->count_all_results();
+            $config['per_page'] = 20;
+
+            $a['data']  =   $this->crud_model->select_paging("pasien", $config['per_page'], ($page !== null) ? (($page - 1) * $config['per_page']) : 0, 'tgl_masuk', 'DESC', [
+                "nama" => $a['keyword_covid']
+            ], null);
+            $a['no']    =   ($page) ? (($page - 1) * $config['per_page'] + 1) : 1;
+            $a['total_rows']    =   $config['total_rows'];
+
+            $this->pagination->initialize($config);
         }
+
 
         $this->bread[]  =    array(
             "active"    =>    TRUE,
@@ -251,5 +314,106 @@ class M_pasien extends CI_Controller
             $this->session->set_flashdata("notifikasi", $notifikasi);
             redirect("pasien");
         }
+    }
+
+    // import pasien
+    public function import()
+    {
+        $this->load->library('form_validation');
+        if ($this->form_validation->run("import_pasien") == FALSE) {
+            $a    =    array();
+
+            $a['page']        =    "/import_pasien_covid";
+            $a['title']        =    "Import Pasien Covid19";
+            $a['label']        =    "Import Pasien Covid19";
+
+            $this->bread[]    =    [
+                "active"    =>    TRUE,
+                "icon"      =>    "",
+                "link"      =>    "",
+                "label"     =>    "Import Pasien Covid 19",
+                "divider"   =>    FALSE,
+            ];
+
+            $a['bread']        =    $this->bread;
+            $this->load->view("backend/main", $a);
+        } else {
+            $file = $_FILES['file']['tmp_name'];
+
+            // Medapatkan ekstensi file csv yang akan diimport.
+            $ekstensi  = explode('.', $_FILES['file']['name']);
+
+            // Validasi apakah file yang diupload benar-benar file csv.
+            if (strtolower(end($ekstensi)) === 'csv' && $_FILES["file"]["size"] > 0) {
+                $data = [];
+                $handle = fopen($file, "r");
+                $i = 0;
+                while (($row = fgetcsv($handle, 2048))) {
+                    $i++;
+                    if ($i == 1) continue;
+                    // Data yang akan disimpan ke dalam databse
+
+                    // cek tiket yang sudah ada
+                    $data[] = [
+                        // 'tanggal' => date_format(date_create_from_format('d/m/Y', $row[0]), 'Y-m-d'),
+                        'nama' => $row[0],
+                        'jenis_kelamin' => $row[1],
+                        'umur' => $row[2],
+                        'puskesmas' => $row[3],
+                        'kelurahan' => $row[4],
+                        'nilai_ct' => $row[5],
+                        'cluster' => $row[6],
+                        'status' => $row[7],
+                        'tgl_masuk' => $row[8],
+                        'tgl_expire' => ($row[7] == 'aktif') ? date('Y-m-d', strtotime('+14 day', strtotime($row[8]))) : null,
+                        'tgl_keluar' => $row[9],
+                        'id_tempat_rawat' => $row[10],
+                    ];
+
+                    // Simpan data ke database.
+                    // $this->crud_model->import("vaksin", $data);
+                }
+                if (!empty($data)) {
+                    $this->crud_model->import_batch("pasien", $data);
+                }
+                fclose($handle);
+
+                $notifikasi        =    array(
+                    "status"    =>    1, "pesan"    =>    "Data berhasil diimport"
+                );
+                $this->session->set_flashdata("notifikasi", $notifikasi);
+                redirect("pasien");
+            } else {
+                $notifikasi        =    array(
+                    "status"    =>    0, "pesan"    =>    "Format File tidak didukung"
+                );
+                $this->session->set_flashdata("notifikasi", $notifikasi);
+                redirect("import-pasien");
+            }
+        }
+    }
+
+    // cek file import excel
+    public function check_file()
+    {
+        $check = TRUE;
+        if ((!isset($_FILES['file'])) || $_FILES['file']['size'] == 0) {
+            $this->form_validation->set_message('check_file', 'File belum dipilih');
+            $check = FALSE;
+        } else if (isset($_FILES['file']) && $_FILES['file']['size'] != 0) {
+            $allowedExts = array("csv");
+            $extension = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+            // if (filesize($_FILES['file']['tmp_name']) > 2108451) {
+            if (filesize($_FILES['file']['tmp_name']) > 5108451) {
+                $this->form_validation->set_message('check_file', 'File maximal 2mb');
+                // $this->form_validation->set_message('check_file', 'Ukuran : ' . filesize($_FILES['file']['tmp_name']));
+                $check = FALSE;
+            }
+            if (!in_array($extension, $allowedExts)) {
+                $this->form_validation->set_message('check_file', "FIle tidak didukung");
+                $check = FALSE;
+            }
+        }
+        return $check;
     }
 }

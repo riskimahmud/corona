@@ -263,14 +263,24 @@ class Crud_model extends CI_Model
 	}
 
 	// Select paginasi
-	function select_paging($table, $number, $offset, $order = null, $order_by = null, $like = null)
+	function select_paging($table, $number, $offset, $order = null, $order_by = null, $like = null, $where)
 	{
-		if ($order !== null) {
-			$this->db->like('nama', $like);
-			$this->db->or_like('tiket', $like);
+		if ($like !== null) {
+			$noLike = 1;
+			foreach ($like as $ind => $val) {
+				if ($noLike > 1) {
+					$this->db->or_like($ind, $val);
+				} else {
+					$this->db->like($ind, $val);
+				}
+				$noLike++;
+			}
 		}
 		if ($order !== null) {
 			$this->db->order_by($order, $order_by);
+		}
+		if ($where !== null) {
+			$this->db->where($where);
 		}
 		return $this->db->get($table, $number, $offset)->result();
 	}

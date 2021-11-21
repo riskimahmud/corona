@@ -1,114 +1,22 @@
 <div class="row-fluid">
     <div class="span12">
         <div class="">
-            <a href="<?= site_url('pasien') ?>" class="btn btn-small btn-inverse">Semua</a>
-            <a href="<?= site_url('pasien/aktif') ?>" class="btn btn-small btn-primary">Aktif</a>
-            <!-- <a href="<?= site_url('pasien/sembuh') ?>" class="btn btn-small btn-success">Sembuh</a>
-            <a href="<?= site_url('pasien/meninggal') ?>" class="btn btn-small btn-danger">Menginggal</a> -->
-            <a href="<?= site_url('pasien/checkup') ?>" class="btn btn-small btn-info">Masuk Masa Check <span class="badge badge-info"><?= $expire; ?></span></a>
+            <a href="<?= site_url('pasien-semua') ?>" class="btn btn-small btn-inverse">Semua</a>
+            <a href="<?= site_url('pasien-aktif') ?>" class="btn btn-small btn-primary">Aktif</a>
+            <a href="<?= site_url('pasien-sembuh') ?>" class="btn btn-small btn-success">Sembuh</a>
+            <a href="<?= site_url('pasien-meninggal') ?>" class="btn btn-small btn-danger">Meninggal</a>
+            <a href="<?= site_url('pasien-checkup') ?>" class="btn btn-small btn-info">Masuk Masa Check <span class="badge badge-info"><?= $expire; ?></span></a>
         </div>
         <div class="space-6"></div>
-        <!-- <div id="accordion2" class="accordion">
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a href="#collapseOne" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Sortir Data
-                    </a>
-                </div>
-
-                <div class="accordion-body collapse" id="collapseOne">
-                    <div class="accordion-inner">
-                        <?= form_open('', ['class' => 'form-horizontal']); ?>
-                        <div class="row">
-                            <div class="span6">
-                                <div class="control-group">
-                                    <label class="control-label" for="jenis_kelamin">Jenis Kelamin</label>
-
-                                    <div class="controls span6">
-                                        <select name="jenis_kelamin" id="jenis_kelamin">
-                                            <option value="">- Semua -</option>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                            <option value="Perempuan">Perempuan</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="umur">Umur</label>
-
-                                    <div class="controls span6">
-                                        <select name="umur" id="umur">
-                                            <option value="">- Semua -</option>
-                                            <option value="1">0 - 12 Tahun</option>
-                                            <option value="2">13 - 25 Tahun</option>
-                                            <option value="3">25 - 45 Tahun</option>
-                                            <option value="4">45 Tahun Keatas</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="tempat_rawat">Tempat Rawat</label>
-
-                                    <div class="controls span6">
-                                        <select name="tempat_rawat" id="tempat_rawat">
-                                            <option value="">- Semua -</option>
-                                            <?php foreach ($tempat_rawat as $tem) : ?>
-                                                <option value="<?= $tem->nama_tempat_rawat; ?>" <?= set_select('kelurahan', $tem->nama_tempat_rawat) ?>><?= $tem->nama_tempat_rawat; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span6">
-                                <div class="control-group">
-                                    <label class="control-label" for="kelurahan">Kelurahan</label>
-
-                                    <div class="controls">
-                                        <select class="chzn-select" name="kelurahan" id="kelurahan" data-placeholder="Semua">
-                                            <option value=""></option>
-                                            <?php foreach ($kelurahan as $kel) : ?>
-                                                <option value="<?= $kel->nama_kelurahan; ?>" <?= set_select('kelurahan', $kel->nama_kelurahan) ?>><?= $kel->nama_kelurahan . " - " . $kel->kecamatan; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <?php echo form_error('kelurahan'); ?>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="puskesmas">Puskesmas</label>
-
-                                    <div class="controls span6">
-                                        <select name="puskesmas" id="puskesmas">
-                                            <option value="">- Semua -</option>
-                                            <?php foreach ($puskesmas as $pus) : ?>
-                                                <option value="<?= $pus->nama_puskesmas; ?>" <?= set_select('kelurahan', $pus->nama_puskesmas) ?>><?= $pus->nama_puskesmas; ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span12">
-                                <button class="btn btn-primary btn-small" type="submit">
-                                    <i class="icon-filter bigger-110"></i>
-                                    Sortir
-                                </button>
-                                &nbsp; &nbsp; &nbsp;
-                                <button class="btn btn-small" type="reset">
-                                    <i class="icon-undo bigger-110"></i>
-                                    Reset
-                                </button>
-                            </div>
-                            <div class="space-20"></div>
-                        </div>
-                        <?= form_close() ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="space-3"></div> -->
         <div class="widget-box">
             <div class="widget-header widget-header-large">
                 <h4>Daftar</h4>
 
                 <div class="widget-toolbar">
+                    <!-- <a href="<?= site_url('import-pasien'); ?>">
+                        <i class="icon-plus-sign-alt"></i> Import
+                    </a>
+                    &nbsp; -->
                     <a href="<?= site_url('tambah-pasien'); ?>">
                         <i class="icon-plus-sign-alt"></i> Tambah
                     </a>
@@ -117,9 +25,23 @@
 
             <div class="widget-body">
                 <div class="widget-main">
+                    <form class="form-search" action="<?= base_url('pasien'); ?>" method="POST">
+                        <input type="text" class="input-large search-query" placeholder="Cari Nama" autofocus autocomplete="off" name="keyword_covid" value="<?= set_value('keyword_covid', ($this->session->userdata('keyword_covid') !== null) ? $this->session->userdata('keyword_covid') : ''); ?>" />
+                        <button type="submit" class="btn btn-primary btn-small" name="submit" value="submit">
+                            Cari
+                            <i class="icon-search icon-on-right"></i>
+                        </button>
+                        <?php if ($this->session->userdata("keyword_covid") !== null) : ?>
+                            <a href="batal-cari-pasien" class="btn btn-danger btn-small">
+                                Batalkan Pencarian
+                                <i class="icon-trash icon-on-right"></i>
+                            </a>
+                        <?php endif; ?>
+                    </form>
+                    <hr class="space-10">
+                    <h5>Jumlah Data : <?= $total_rows; ?></h5>
                     <div class="table-responsive">
-
-                        <table class="table table-hover" id="tablePasien">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -135,7 +57,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $no = 1;
+                                // $no = 1;
                                 foreach ($data as $d) :
                                     if ($d->status == "aktif") {
                                         $label = "primary";
@@ -170,6 +92,10 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+
+                        <div class="text-center">
+                            <?php echo $this->pagination->create_links(); ?>
+                        </div>
                     </div>
                 </div>
             </div>
