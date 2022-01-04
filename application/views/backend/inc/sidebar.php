@@ -34,12 +34,12 @@
 				<span class="menu-text"> Dashboard </span>
 			</a>
 		</li>
-		<li>
+		<!-- <li>
 			<a href="<?php echo site_url("sebaran"); ?>">
 				<i class="icon-briefcase"></i>
 				<span class="menu-text"> Laporan </span>
 			</a>
-		</li>
+		</li> -->
 		<li>
 			<a href="<?php echo site_url("pasien"); ?>">
 				<i class="icon-group"></i>

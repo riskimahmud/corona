@@ -353,7 +353,9 @@ class M_pasien extends CI_Controller
                     if ($i == 1) continue;
                     // Data yang akan disimpan ke dalam databse
 
-                    // cek tiket yang sudah ada
+                    // cek format tanggal
+                    // echo date('Y-m-d', strtotime($row[8])) . "<br>";
+                    $tgl_masuk = text_to_date($row[8]);
                     $data[] = [
                         // 'tanggal' => date_format(date_create_from_format('d/m/Y', $row[0]), 'Y-m-d'),
                         'nama' => $row[0],
@@ -364,15 +366,19 @@ class M_pasien extends CI_Controller
                         'nilai_ct' => $row[5],
                         'cluster' => $row[6],
                         'status' => $row[7],
-                        'tgl_masuk' => $row[8],
-                        'tgl_expire' => ($row[7] == 'aktif') ? date('Y-m-d', strtotime('+14 day', strtotime($row[8]))) : null,
-                        'tgl_keluar' => $row[9],
+                        // 'tgl_masuk' => $row[8],
+                        'tgl_masuk' => $tgl_masuk,
+                        'tgl_expire' => ($row[7] == 'aktif') ? date('Y-m-d', strtotime($tgl_masuk . '+14 days')) : null,
+                        // 'tgl_expire' => date('Y-m-d', strtotime($tgl_masuk . '+14 days')),
+                        'tgl_keluar' => date('Y-m-d', strtotime(text_to_date($row[9]))),
+                        // 'tgl_keluar' => text_to_date($row[9]),
                         'id_tempat_rawat' => $row[10],
                     ];
 
                     // Simpan data ke database.
                     // $this->crud_model->import("vaksin", $data);
                 }
+                // echo json_encode($data);
                 if (!empty($data)) {
                     $this->crud_model->import_batch("pasien", $data);
                 }

@@ -28,6 +28,12 @@ class A_vaksinasi extends REST_Controller
                 $tmp_data[$i]['tanggal']   =   tgl_indonesia($v['tanggal']);
             }
             $data   = $tmp_data;
+        } elseif ($method == "statistik") {
+			$data	=	[];
+			$data['dosis1']	=	$this->crud_model->select_custom_row("SELECT count(id_vaksin) as jumlah FROM vaksin WHERE dosis = 'Dosis 1' GROUP BY dosis");
+			$data['dosis2']	=	$this->crud_model->select_custom_row("SELECT count(id_vaksin) as jumlah FROM vaksin WHERE dosis = 'Dosis 2' GROUP BY dosis");
+			$data['dosis3']	=	$this->crud_model->select_custom_row("SELECT count(id_vaksin) as jumlah FROM vaksin WHERE dosis = 'Dosis 3' GROUP BY dosis");
+			$data['jenis_vaksin']	=	$this->crud_model->select_custom("SELECT jenis_vaksin, count(id_vaksin) as jumlah FROM vaksin GROUP BY jenis_vaksin");
         } elseif ($method == "jadwal") {
             $data   =   $this->api->getJadwalVaksinasi();
         } elseif ($method == "dosis") {
