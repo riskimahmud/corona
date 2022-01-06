@@ -41,6 +41,10 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/ace-responsive.min.css" />
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/ace-skins.min.css" />
 
+	<!-- highchart -->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<link rel="stylesheet" href="<?= base_url('assets/hc/style.css'); ?>">
+
 	<script>
 		const url = '<?= base_url(); ?>';
 	</script>

@@ -100,10 +100,15 @@ class Crud_model extends CI_Model
 	}
 
 	// select where array
-	function select_all_where_array($table, $where)
+	function select_all_where_array($table, $where, $order = null)
 	{
 		$this->db->select('*');
 		$this->db->where($where);
+		if ($order !== null) {
+			foreach ($order as $ind => $val) {
+				$this->db->order_by($ind, $val);
+			}
+		}
 		$query = $this->db->get($table);
 		return $query->result();
 	}
@@ -263,7 +268,7 @@ class Crud_model extends CI_Model
 	}
 
 	// Select paginasi
-	function select_paging($table, $number, $offset, $order = null, $order_by = null, $like = null, $where)
+	function select_paging($table, $number, $offset, $order = null, $order_by = null, $like = null, $where = null)
 	{
 		if ($like !== null) {
 			$noLike = 1;
@@ -339,9 +344,12 @@ class Crud_model extends CI_Model
 	}
 
 
-	function select_custom($query)
+	function select_custom($query, $array = false)
 	{
 		$q	=	$this->db->query($query);
+		if ($array) {
+			return $q->result_array();
+		}
 		return $q->result();
 	}
 

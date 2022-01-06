@@ -32,6 +32,9 @@ $route['pasien-vaksinasi/(:num)']    =   'M_vaksinasi/pasien/$1';
 $route['import-pasien-vaksinasi']    =   'M_vaksinasi/import';
 $route['detail-pasien-vaksin']    =   'M_vaksinasi/detail_pasien';
 
+// Statistik
+$route['statistik-covid']   =   'Statistik/covid';
+
 // frontend
 $route['pasien-covid']  =   'Frontend/pasien';
 $route['vaksinasi']  =   'Frontend/vaksinasi';

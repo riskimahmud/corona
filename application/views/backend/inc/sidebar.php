@@ -145,6 +145,23 @@
 				</li> -->
 			</ul>
 		</li>
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-bar-chart"></i>
+				<span class="menu-text"> Statistik </span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="<?php echo site_url("statistik-covid"); ?>">
+						<i class="icon-group"></i>
+						<span class="menu-text"> Pasien Covid 19 </span>
+					</a>
+				</li>
+			</ul>
+		</li>
 		<!-- <li>
 			<a href="#" class="dropdown-toggle">
 				<i class="icon-briefcase"></i>
